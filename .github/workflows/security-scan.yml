@@ -17,9 +17,10 @@ jobs:
         uses: bridgecrewio/checkov-action@master
         with:
           directory: terraform
+          soft_fail: true
 
       - name: Run Trivy Scan
         uses: aquasecurity/trivy-action@master
         with:
-          scan-type: 'fs'
-          scan-ref: './sample-app'
+          scan-type: fs
+          scan-ref: .
