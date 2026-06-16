@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  security-events: write
+
 jobs:
   security-checks:
     runs-on: ubuntu-latest
@@ -34,11 +38,6 @@ jobs:
           scanners: secret
           format: sarif
           output: trivy-secret-results.sarif
-
-      - name: Upload Trivy Secret Results
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: trivy-secret-results.sarif
 
       - name: Detailed Secret Scan Log
         run: |
