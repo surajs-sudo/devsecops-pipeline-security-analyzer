@@ -213,6 +213,36 @@ CRITICAL
 
 ---
 
+## Current Scanning Limitations
+
+While the DevSecOps pipeline provides automated security validation, there are some limitations in the current implementation:
+
+### Checkov Limitations
+
+* Checkov is currently configured to scan only the `terraform/` directory.
+* Terraform files placed outside the `terraform/` folder will not be analyzed.
+* Non-Terraform infrastructure definitions are not scanned.
+
+### Trivy Vulnerability Scan Limitations
+
+* The vulnerability scan primarily analyzes dependencies defined in `requirements.txt`.
+* Dependencies installed outside the managed dependency file may not be detected.
+* Runtime vulnerabilities are not evaluated.
+
+### Trivy Secret Scan Limitations
+
+* Trivy Secret Scanner analyzes repository files but may not detect secrets embedded inside binary files.
+* Files such as PDFs, images, archives, and encrypted documents may not be fully inspected for hidden credentials.
+* Secrets stored outside the repository are not scanned.
+
+### General Limitations
+
+* The workflow is configured using `soft_fail: true`, allowing the pipeline to complete even when security findings are detected.
+* Security findings are reported but do not currently block code deployment.
+* The project demonstrates static security testing and does not include runtime security monitoring.
+* Container image scanning and cloud-native security monitoring are not implemented in the current version.
+
+
 ## Author
 
 **Suraj Somkuwar**
